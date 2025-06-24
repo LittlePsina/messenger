@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .chat-list { display: flex; flex-direction: column; width: 300px; }
+        .chat { padding: 10px; border-bottom: 1px solid #ccc; cursor: pointer; }
+        .create-chat { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Your Chats</h2>
+    <div class="chat-list">
+        {% for chat in chats %}
+        <div class="chat">
+            <a href="{% url 'chat_detail' chat.id %}">{{ chat.name }}</a> {% if chat.is_group %}(Group){% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="create-chat">
+        <a href="{% url 'create_chat' %}">Create New Chat</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ chat.name }}</title>
+    <style>
+        .messages { height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
+        .message { margin-bottom: 10px; }
+        .input { display: flex; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>{{ chat.name }}</h2>
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message">
+            <strong>{{ message.sender.username }}:</strong> {{ message.text }}
+        </div>
+        {% endfor %}
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="input">
+            <input type="text" name="message" placeholder="Type a message...">
+            <button type="submit">Send</button>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <title>Create Chat</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            width: 400px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #0088cc;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            text-align: left;
+            font-size: 14px;
+            color: #333;
+        }
+        input, select {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 16px;
+            outline: none;
+            background-color: #e5ddd5;
+        }
+        input[type="checkbox"] {
+            width: auto;
+            margin-top: 15px;
+        }
+        button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #007bb5;
+        }
+        select {
+            height: 100px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Создать новый чат</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="chat_name">Название чата:</label>
+            <input type="text" name="name" required><br>
+            <label>
+                <input type="checkbox" name="is_group"> Групповой чат
+            </label>
+          
+            <label for="user_search">Поиск пользователя:</label>
+            <input type="text" id="user_search" name="user_search"
+                   hx-get="{% url 'user-search' %}" 
+                   hx-trigger="keyup changed delay:300ms"
+                   hx-target="#search-results"
+                   hx-swap="innerHTML">
+            
+            <div id="search-results"></div>
+          
+            <button type="submit">Создать чат</button>
+          </form>          
+    </div>
+</body>
+</html>
